@@ -1,0 +1,48 @@
+﻿{% extends "core/base.html" %}
+{% block content %}
+
+{% block content_header %}
+
+    <h2>Books</h2>
+    <p>
+        <a href="{% url 'core:upload_book' %}">Upload book</a>
+    </p>
+
+{% endblock content_header %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Cover</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Download</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+            <tr>
+                <td>
+                  {% if book.cover %}
+                    <img src="{{ book.cover.url }}" alt="{{ book.title }}" style="width:100px;"/>
+                  {% else %}
+                    <span class="text-muted">No cover</span>
+                  {% endif %}
+                </td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>
+                  <a href="{{ book.pdf.url }}" target="_blank">Download PDF</a>
+                </td>
+                <td>
+                    <form method="post" action="{% url 'core:delete_book' book.pk %}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

@@ -1,0 +1,10 @@
+﻿{% extends 'core/book_list.html' %}
+
+{% block content_header %}
+
+    <h2>Books (Class-Based View)</h2>
+    <p>
+        <a href="{% url 'core:class_upload_book' %}">Upload book</a>
+    </p>
+
+{% endblock content_header %}
